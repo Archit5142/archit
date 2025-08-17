@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BUS TRACKER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Firebase + Google Maps -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBy_ieIzByu1uYgW1FEaM5vXUW9QeYal4"></script>
+</head>
+<body>
+  <!-- LOGIN PAGE -->
+  <section id="loginPage" class="login-page">
+    <div class="float-bus" aria-hidden="true">
+      <!-- Animated buses -->
+      <svg class="bus" viewBox="0 0 120 60" fill="none">
+        <rect x="5" y="15" width="100" height="35" rx="8" fill="#111827"/>
+        <rect x="15" y="22" width="30" height="16" rx="3" fill="#93c5fd"/>
+        <rect x="50" y="22" width="20" height="16" rx="3" fill="#93c5fd"/>
+        <rect x="75" y="22" width="20" height="16" rx="3" fill="#93c5fd"/>
+        <circle cx="30" cy="52" r="6" fill="#1f2937"/>
+        <circle cx="80" cy="52" r="6" fill="#1f2937"/>
+      </svg>
+    </div>
+
+    <div class="login-card">
+      <div class="brand">
+        <span class="bus-emoji">🚌</span>
+        <h1>BUS TRACKER</h1>
+      </div>
+      <p class="subtitle">Secure sign-in to view live bus locations.</p>
+
+      <div class="input">
+        <span>📧</span>
+        <input id="email" type="email" placeholder="Email address" required>
+      </div>
+      <div class="input">
+        <span>🔒</span>
+        <input id="password" type="password" placeholder="Password" required>
+      </div>
+
+      <div class="row">
+        <button class="btn" onclick="login()">Log in</button>
+      </div>
+      <div class="row" style="margin-top:.35rem">
+        <button class="btn outline" onclick="signup()">Create account</button>
+      </div>
+
+      <div class="meta">
+        <span class="muted">Use your school email</span>
+        <span id="loginStatus" class="pill">Status: <strong>Signed out</strong></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAP PAGE -->
+  <section id="mapPage" class="map-page hidden">
+    <header class="appbar">
+      <div class="title">🗺️ Live Bus Map</div>
+      <div class="row">
+        <div id="authUser" class="pill">—</div>
+        <button class="smallbtn pill" onclick="logout()">Logout</button>
+      </div>
+    </header>
+
+    <div id="map"></div>
+
+    <div class="controls">
+      <select id="busSelect" class="select" aria-label="Select Bus">
+        <option value="bus1">BUS 1</option>
+        <option value="bus2">BUS 2</option>
+      </select>
+
+      <button class="smallbtn start-btn" onclick="startTracking()">Start Tracking</button>
+      <button class="smallbtn stop-btn" onclick="stopTracking()">Stop Tracking</button>
+      <button class="smallbtn" onclick="locateMe()">My Location</button>
+    </div>
+
+    <div class="statusbar">
+      <div>Selected: <strong id="selectedBus">bus1</strong></div>
+      <div>Bus status: <strong id="busStatus" class="bad">waiting…</strong></div>
+      <div>Last update: <strong id="lastUpdate">—</strong></div>
+      <div>Distance: <strong id="distanceKm">—</strong></div>
+    </div>
+
+    <footer>Developed by Archit Sharma</footer>
+  </section>
+
+  <!-- JS -->
+  <script src="app.js"></script>
+</body>
+</html>
